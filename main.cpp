@@ -11,6 +11,7 @@ int main(int argc, char* argv[])
   sf::RenderWindow window(sf::VideoMode(x, y), "NBody Simulation");
 
   std::vector<sf::ConvexShape> bodies;
+  bodies.push_back(new Body("nbody_files/earth.gif"));
 
   while (window.isOpen())
       {

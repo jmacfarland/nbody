@@ -2,7 +2,7 @@
 
 #include "Body.hpp"
 
-Body::  Body(float x_pos = 0.0, float y_pos = 0.0, float x_vel = 0.0, float y_vel = 0.0, float mass_init = 0.0, string filename_init = "") {
+Body::Body(float x_pos, float y_pos, float x_vel, float y_vel, float mass_init, std::string filename_init) {
   position.x = x_pos;
   position.y = y_pos;
   velocity.x = x_vel;
@@ -11,4 +11,18 @@ Body::  Body(float x_pos = 0.0, float y_pos = 0.0, float x_vel = 0.0, float y_ve
   filename = filename_init;
 }
 
-Body::getPos
+sf::Vector2f Body::getPos() const {
+  return position;
+}
+
+sf::Vector2f Body::getVel() const {
+  return velocity;
+}
+
+void Body::setPos(sf::Vector2f newPos) {
+  position = newPos;
+}
+
+void Body::setVel(sf::Vector2f newVel) {
+  velocity = newVel;
+}
