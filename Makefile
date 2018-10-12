@@ -11,7 +11,8 @@ NBody: main.o Body.o
 main.o: main.cpp Body.o
 	$(PP) $(STD) $(WFLAGS) -c main.cpp
 
-Body.o: Body.cpp
+Body.o: Body.cpp Body.hpp
 	$(PP) $(STD) $(WFLAGS) -c Body.cpp
 
-clean: rm *.o NBody
+clean:
+	rm *.o NBody

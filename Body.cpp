@@ -2,13 +2,18 @@
 
 #include "Body.hpp"
 
-Body::Body(float x_pos, float y_pos, float x_vel, float y_vel, float mass_init, std::string filename_init) {
+Body::Body(float x_pos, float y_pos, float x_vel, float y_vel, float mass_init, std::string filename) {
   position.x = x_pos;
   position.y = y_pos;
   velocity.x = x_vel;
   velocity.y = y_vel;
   mass = mass_init;
-  filename = filename_init;
+
+  setupSprite(filename);
+}
+
+void Body::draw(sf::RenderTarget & target, sf::RenderStates states) const {
+  target.draw(sprite, states);
 }
 
 sf::Vector2f Body::getPos() const {
@@ -25,4 +30,10 @@ void Body::setPos(sf::Vector2f newPos) {
 
 void Body::setVel(sf::Vector2f newVel) {
   velocity = newVel;
+}
+
+void Body::setupSprite(std::string filename)
+{
+  texture.loadFromFile(filename);
+  sprite.setTexture(texture);
 }

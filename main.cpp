@@ -10,8 +10,10 @@ int main(int argc, char* argv[])
   int y = 600;
   sf::RenderWindow window(sf::VideoMode(x, y), "NBody Simulation");
 
-  std::vector<sf::ConvexShape> bodies;
-  bodies.push_back(new Body("nbody_files/earth.gif"));
+  std::vector<Body> bodies;
+
+  Body earth;
+  bodies.push_back(earth);
 
   while (window.isOpen())
       {
