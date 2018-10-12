@@ -1,5 +1,3 @@
-
-
 #include "Body.hpp"
 
 Body::Body(float x_pos, float y_pos, float x_vel, float y_vel, float mass_init, std::string filename) {

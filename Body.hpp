@@ -21,6 +21,7 @@ public:
   void setPos(sf::Vector2f pos);
   void setVel(sf::Vector2f vel);
 private:
+  //Separate function to update the object's Sprite
   void setupSprite(std::string filename);
 
   sf::Vector2f position;

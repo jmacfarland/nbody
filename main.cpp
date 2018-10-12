@@ -12,6 +12,8 @@ int main(int argc, char* argv[])
 
   std::vector<Body> bodies;
 
+  //Test code to draw Earth in the simulation- I've setup the default constructor
+  //to create a Body with 0 everything, and sprite earth.gif
   Body earth;
   bodies.push_back(earth);
 
