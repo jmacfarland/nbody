@@ -10,7 +10,6 @@ int main(int argc, char* argv[])
   float universeSize; 
   std::vector<Body*> bodies;
   std::string line;
-  Body newbody;
   // read in universe size and number of bodies
   std::cin >> numberOfBodies;
   std::cout << "number of bodies" << numberOfBodies;
@@ -34,11 +33,12 @@ int main(int argc, char* argv[])
       std::cin >> yvel;
       std::cin >> mass;
       std::cin >> filename;
-      newbody = Body();
-      newbody.setUniverseSize(universeSize);
-      newbody.setStartPosition();
       bodies.push_back(new Body(xpos, ypos, xvel, yvel, mass, filename));
       //not finshed here almost
+      bodies[i]->setMyOrigin();
+      bodies[i]->setUniverseSize(universeSize);
+      bodies[i]->setStartPosition();
+      
   }
   //Test code to draw Earth in the simulation- I've setup the default constructor
   //to create a Body with 0 everything, and sprite earth.gif

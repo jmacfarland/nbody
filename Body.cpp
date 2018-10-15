@@ -36,7 +36,7 @@ void Body::setupSprite(std::string filename)
   texture.loadFromFile(filename);
   sprite.setTexture(texture);
   //set to origin of the 600x600 window
-  sprite.setPosition(300, 300); 
+  
   
 }
 void Body::setUniverseSize(float uni){
@@ -45,8 +45,12 @@ void Body::setUniverseSize(float uni){
 }
 
 void Body::setStartPosition(){
-  float movex = ((xlocation / universeSize) * 600);
-  float movey = ((ylocation / universeSize) * 600);
+  float movex = ((xlocation / universeSize) * 300);
+  float movey = ((ylocation / universeSize) * 300);
   sprite.move(movex, movey);
 
+}
+
+void::Body::setMyOrigin(){
+  sprite.setPosition(300,300);
 }

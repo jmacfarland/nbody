@@ -29,6 +29,7 @@ public:
 
   void setUniverseSize(float universeSize);
   void setStartPosition();
+  void setMyOrigin();
 
 private:
   //Separate function to update the object's Sprite
