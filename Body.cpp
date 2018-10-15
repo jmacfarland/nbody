@@ -6,7 +6,8 @@ Body::Body(float x_pos, float y_pos, float x_vel, float y_vel, float mass_init, 
   velocity.x = x_vel;
   velocity.y = y_vel;
   mass = mass_init;
-
+  xlocation = x_pos;
+  ylocation = y_pos;
   setupSprite(filename);
 }
 
@@ -38,9 +39,14 @@ void Body::setupSprite(std::string filename)
   sprite.setPosition(300, 300); 
   
 }
-void Body::setRelativePosition(float universeSize){
+void Body::setUniverseSize(float uni){
+  universeSize = uni;  
+  
+}
 
-  //float movex = ((position.x / universeSize) * 600);
-  //float movey = ((position.y / universeSize) * 600);
-  sprite.move(position.x, position.y);
+void Body::setStartPosition(){
+  float movex = ((xlocation / universeSize) * 600);
+  float movey = ((ylocation / universeSize) * 600);
+  sprite.move(movex, movey);
+
 }

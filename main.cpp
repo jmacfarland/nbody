@@ -8,13 +8,14 @@ int main(int argc, char* argv[])
 {
   int numberOfBodies;
   float universeSize; 
-  std::vector<Body> bodies;
+  std::vector<Body*> bodies;
   std::string line;
   Body newbody;
   // read in universe size and number of bodies
   std::cin >> numberOfBodies;
   std::cout << "number of bodies" << numberOfBodies;
   std::cin >> universeSize;
+  std::cout << universeSize;
   //read in the planet data
 
 
@@ -33,13 +34,16 @@ int main(int argc, char* argv[])
       std::cin >> yvel;
       std::cin >> mass;
       std::cin >> filename;
-      newbody = Body(xpos, ypos, xvel, yvel, mass, filename);
-      bodies.push_back(newbody);
+      newbody = Body();
+      newbody.setUniverseSize(universeSize);
+      newbody.setStartPosition();
+      bodies.push_back(new Body(xpos, ypos, xvel, yvel, mass, filename));
+      //not finshed here almost
   }
   //Test code to draw Earth in the simulation- I've setup the default constructor
   //to create a Body with 0 everything, and sprite earth.gif
   //Body earth;
-  Body mars(500.0, 20.0, 2.0, 1.0, 1e20, "sun.gif");
+  //Body mars(500.0, 20.0, 2.0, 1.0, 1e20, "sun.gif");
   //bodies.push_back(earth);
   //bodies.push_back(mars);
  
@@ -56,8 +60,8 @@ int main(int argc, char* argv[])
           window.clear();
           for(int i = 0; i < (int)bodies.size(); i++)
           {
-           bodies[i].setRelativePosition(universeSize); 
-           window.draw(bodies.at(i));
+           
+           window.draw(*bodies.at(i));
            
           }
           window.display();

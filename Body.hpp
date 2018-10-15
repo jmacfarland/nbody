@@ -27,16 +27,18 @@ public:
   //Define the oveloaded operator >>
   //friend std::istream & operator>>( std::istream &input ,Body &b);
 
-  void setRelativePosition(float universeSize);
+  void setUniverseSize(float universeSize);
+  void setStartPosition();
 
 private:
   //Separate function to update the object's Sprite
   void setupSprite(std::string filename);
-
+  float xlocation;
+  float ylocation;
   sf::Vector2f position;
   sf::Vector2f velocity;
   float mass;
-
+  float universeSize;
   sf::Texture texture;
   sf::Sprite sprite;
   
