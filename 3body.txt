@@ -1,7 +1,7 @@
 3
 600
 0.00e00  0.00e00  0.05e04  0.00e00  5.974e24  earth.gif
-0.00e00  100  30.04  0.00e00  1.989e30  sun.gif
+100.00e00  100  30.04  0.00e00  1.989e30  sun.gif
 0.00e00 -100 -30.04  0.00e00  1.989e30  sun.gif
 
 [!] Your program should not read this line, as all 3 planets were already listed

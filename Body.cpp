@@ -34,12 +34,13 @@ void Body::setupSprite(std::string filename)
 {
   texture.loadFromFile(filename);
   sprite.setTexture(texture);
-  sprite.setPosition(position); 
+  //set to origin of the 600x600 window
+  sprite.setPosition(300, 300); 
   
 }
 void Body::setRelativePosition(float universeSize){
 
-  position.x = ((position.x / universeSize) * 600) + 300;
-  position.y = ((position.y / universeSize) * 600) + 300;
-  sprite.setPosition(position);    
+  //float movex = ((position.x / universeSize) * 600);
+  //float movey = ((position.y / universeSize) * 600);
+  sprite.move(position.x, position.y);
 }

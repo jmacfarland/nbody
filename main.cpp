@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
   //Body earth;
   Body mars(500.0, 20.0, 2.0, 1.0, 1e20, "sun.gif");
   //bodies.push_back(earth);
-  bodies.push_back(mars);
+  //bodies.push_back(mars);
  
 
   while (window.isOpen())
@@ -56,8 +56,8 @@ int main(int argc, char* argv[])
           window.clear();
           for(int i = 0; i < (int)bodies.size(); i++)
           {
-            //bodies[i].setRelativePosition(universeSize);
-            window.draw(bodies.at(i));
+           bodies[i].setRelativePosition(universeSize); 
+           window.draw(bodies.at(i));
            
           }
           window.display();
