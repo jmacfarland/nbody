@@ -22,13 +22,28 @@ sf::Vector2f Body::getPos() const {
 sf::Vector2f Body::getVel() const {
   return velocity;
 }
-
+double Body::getMass() {
+  return mass;
+}
 void Body::setPos(sf::Vector2f newPos) {
   position = newPos;
 }
 
 void Body::setVel(sf::Vector2f newVel) {
   velocity = newVel;
+}
+
+void Body::setAccel(float x_accel, float y_accel){
+  X_acceleration = x_accel;
+  Y_acceleration = y_accel;
+}
+void Body::step(float deltaT){
+  //update the velocity
+  velocity.x = velocity.x * deltaT * X_acceleration;
+  velocity.y = velocity.y * deltaT * Y_acceleration;
+  //update the position
+   
+
 }
 //setup sprite now also lets the location as well as the filename.
 void Body::setupSprite(std::string filename)

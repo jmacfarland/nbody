@@ -87,7 +87,7 @@ int main(int argc, char *argv[]) {
         accely = forcey / mass1; 
         //calculate the new velocity
         velocityx = bodies[i] -> getVel().x;
-        velocityx = velocityx * deltaT * accelx; 
+        velocityx = velocityx * deltaT * accelx; // need to read in delta T (seconds) 
 
         velocityy = bodies[i] -> getVel().y;
         velocityy = velocityy * deltaT * accely;

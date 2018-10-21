@@ -20,9 +20,10 @@ public:
   //Getters and setters
   sf::Vector2f getPos() const;
   sf::Vector2f getVel() const;
-
+  double getMass();
   void setPos(sf::Vector2f pos);
   void setVel(sf::Vector2f vel);
+  void setAccel(float xaccel, float yaccel);
   
   //Define the oveloaded operator >>
   //friend std::istream & operator>>( std::istream &input ,Body &b);
@@ -31,6 +32,8 @@ public:
   void setStartPosition();
   void setMyOrigin();
 
+  //step function to move body based on time and current velocity
+  void step(float delT);
 private:
   //Separate function to update the object's Sprite
   void setupSprite(std::string filename);
@@ -42,7 +45,8 @@ private:
   float universeSize;
   sf::Texture texture;
   sf::Sprite sprite;
-  
+  float X_acceleration;
+  float Y_acceleration;
   /*
   friend std::istream & operator >> (std::istream &in,  Body &b){
   std::vector <std::string> tokens;
