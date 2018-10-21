@@ -9,6 +9,8 @@ Body::Body(float x_pos, float y_pos, float x_vel, float y_vel, float mass_init, 
   xlocation = x_pos;
   ylocation = y_pos;
   setupSprite(filename);
+  old_position.x = x_pos;
+  old_position.y = y_pos;
 }
 
 void Body::draw(sf::RenderTarget & target, sf::RenderStates states) const {
@@ -37,13 +39,21 @@ void Body::setAccel(float x_accel, float y_accel){
   X_acceleration = x_accel;
   Y_acceleration = y_accel;
 }
-void Body::step(float deltaT){
+ void Body::setDeltaT(float seconds){
+   delta_T =  seconds;
+ }
+void Body::step(double deltaT){
   //update the velocity
   velocity.x = velocity.x * deltaT * X_acceleration;
   velocity.y = velocity.y * deltaT * Y_acceleration;
   //update the position
-   
-
+  old_position = position;
+  position.x = position.x  + (velocity.x * deltaT);
+  position.y = position.y + (velocity.y * deltaT);
+  // move the sprite an ammount relative to the screen
+  float move_x = ((position.x - old_position.x) / universeSize) * 300;
+  float move_y = ((position.y - old_position.y) / universeSize) * 300; 
+  sprite.move(move_x, move_y);
 }
 //setup sprite now also lets the location as well as the filename.
 void Body::setupSprite(std::string filename)
