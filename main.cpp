@@ -1,16 +1,15 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
+#include <math.h>
 
 #include "Body.hpp"
 
-// Displays the final state of the universe in text format
-void displayOutput() {}
-
 int main(int argc, char *argv[]) {
-  double t = std::atof(argv[1]);
-  double dt = std::atof(argv[2]);
-  double timeElapsed = 0;
+  //double totalseconds;
+  double deltaTseconds;
+  //totalseconds = atof(argv[1]);
+  deltaTseconds = atof(argv[2]);
 
   int numberOfBodies;
   float universeSize;
@@ -47,39 +46,69 @@ int main(int argc, char *argv[]) {
     std::cin >> filename;
     std::cout << filename << std::endl;
     bodies.push_back(new Body(xpos, ypos, xvel, yvel, mass, filename));
-    // not finshed here almost
     bodies[i]->setMyOrigin();
     bodies[i]->setUniverseSize(universeSize);
     bodies[i]->setStartPosition();
   }
 
   while (window.isOpen()) {
+    window.setFramerateLimit(60);
     sf::Event event;
     while (window.pollEvent(event)) {
       if (event.type == sf::Event::Closed)
         window.close();
     }
-
-    // Calculate forces acting on each Body
-
-    // Apply forces to each Body, changing their Velocities
-
-    // Calculate and apply new positions based on updated Velocities
-    for (int i = 0; i < static_cast<int>(bodies.size()); i++) {
-      bodies[i]->step(dt);
-    }
-    timeElapsed += dt;
-    if (timeElapsed >= t) {
-      window.close();
-      displayOutput();
-    }
-
+    
     window.clear();
     window.draw(backgroundSprite);
-    for (int i = 0; i < static_cast<int>(bodies.size()); i++) {
+    for( int i = 0; i < numberOfBodies; ++i){ // i is the body to work on
+        for ( int j = 0; j < numberOfBodies; ++j){// j iterates through all the other bodies
+        
+        sf::Vector2f tempvector, tempvector2, newVelocity;
+        //declare and label a bunch of floats for use here
+        float CONSTANT_G = 0.00000000006673;
+        float distanceBetween, xdis, ydis, xdissqrd, ydissqrd, temp, distanceBetweensqrd, mass1, mass2, forcex, forcey, accelx, accely;
+        // lets calculate the distance between the first body in the vector and the second.
+        tempvector = bodies[i] -> getPos();
+        tempvector2 = bodies[j] -> getPos();
+        xdis = tempvector.x - tempvector2.x;
+        ydis = tempvector.y - tempvector2.y;
+        xdissqrd = xdis * xdis; 
+        ydissqrd = ydis * ydis;
+        temp = xdissqrd + ydissqrd; // a square + b square
+        distanceBetween = sqrt(temp); // c square
+       
+        //calculate the force between the two objects
+        float force; 
+        mass1 = bodies[i] -> getMass();
+        mass2 = bodies[j] -> getMass(); 
+        distanceBetweensqrd = distanceBetween * distanceBetween;
+        if(distanceBetweensqrd == 0){
+          force = 0;
+          forcex = 0;
+          forcey = 0;
+        }
+        else {
+          force = (CONSTANT_G * mass1 * mass2) / distanceBetweensqrd;
+          //calculate the x and y components of the force ont th body
+          forcex = (xdis / distanceBetween) * force;
+          forcey = (ydis / distanceBetween) * force;
+        }
+        // calculate the acceleration on the body's x and y components
+        accelx = forcex / mass1;
+        accely = forcey / mass1; 
+        //give the new accel to the body
+        bodies[i] ->setAccel(accelx, accely);
+  
+        }//end j
+    }//end i
+     
+      for (int i = 0; i < (int)bodies.size(); i++) {
 
-      window.draw(*bodies.at(i));
-    }
+        
+        window.draw(*bodies.at(i));
+        bodies[i] -> step(deltaTseconds);
+      }
     window.display();
   }
 

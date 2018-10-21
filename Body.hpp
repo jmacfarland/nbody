@@ -26,10 +26,14 @@ public:
   // Getters and setters
   sf::Vector2f getPos() const;
   sf::Vector2f getVel() const;
-
+  double getMass();
   void setPos(sf::Vector2f pos);
   void setPos(float x, float y);
   void setVel(sf::Vector2f vel);
+  void setAccel(float xaccel, float yaccel);
+  
+  //Define the oveloaded operator >>
+  //friend std::istream & operator>>( std::istream &input ,Body &b);
   void setVel(float x, float y);
 
   // Define the oveloaded operator >>
@@ -38,55 +42,27 @@ public:
   void setUniverseSize(float universeSize);
   void setStartPosition();
   void setMyOrigin();
+  void setDeltaT(float seconds);
 
+  //step function to move body based on time and current velocity
+  void step(double delT);
 private:
   // Separate function to update the object's Sprite
   void setupSprite(std::string filename);
+  //Member Variables
   float xlocation;
   float ylocation;
   sf::Vector2f position;
+  sf::Vector2f old_position;
   sf::Vector2f velocity;
   float mass;
   float universeSize;
   sf::Texture texture;
   sf::Sprite sprite;
-
-  /*
-  friend std::istream & operator >> (std::istream &in,  Body &b){
-  std::vector <std::string> tokens;
-  std::istringstream tokenstream(in);
-
-    std::string intermediate;
-
-    // Tokenizing w.r.t. space ' '
-    while(getline(tokenstream, intermediate, ' '))
-    {
-        tokens.push_back(intermediate);
-    }
-  //put the tokenized string into their seperate variables.
-  std::string xpostring, yposstring, xvelstring, yvelstring,
-massstring,imagestring; imagestring = tokens.back(); tokens.pop_back();
-  massstring = tokens.back();
-  tokens.pop_back();
-  yvelstring = tokens.back();
-  tokens.pop_back();
-  xvelstring = tokens.back();
-  tokens.pop_back();
-  yposstring = tokens.back();
-  tokens.pop_back();
-  xpostring = tokens.back();
-  tokens.pop_back();
-  float xpos, ypos, xvel, yvel, mass;
-  xpos = atof(xpostring);
-  ypos = stof(yposstring);
-  xvel = stof(xvelstring);
-  yvel = stof(yvelstring);
-  mass = stof(massstring);
-
-    b = Body(xpos, ypos, xvel, yvel, mass, imagestring);
-}
-*/
+  float X_acceleration;
+  float Y_acceleration;
+  float delta_T;
 };
-// Overload the operator out of class scope as global function
 
-#endif // BODY_HPP_
+ 
+#endif
