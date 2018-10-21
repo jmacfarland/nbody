@@ -10,6 +10,7 @@ int main(int argc, char *argv[]) {
   double deltaTseconds;
   //totalseconds = atof(argv[1]);
   deltaTseconds = atof(argv[2]);
+
   int numberOfBodies;
   float universeSize;
   std::vector<Body *> bodies;
@@ -57,7 +58,7 @@ int main(int argc, char *argv[]) {
       if (event.type == sf::Event::Closed)
         window.close();
     }
-  
+    
     window.clear();
     window.draw(backgroundSprite);
     for( int i = 0; i < numberOfBodies; ++i){ // i is the body to work on
@@ -108,7 +109,6 @@ int main(int argc, char *argv[]) {
         window.draw(*bodies.at(i));
         bodies[i] -> step(deltaTseconds);
       }
-      
     window.display();
   }
 
