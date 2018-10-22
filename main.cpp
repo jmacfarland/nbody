@@ -11,6 +11,7 @@ int main(int argc, char *argv[]) {
   
   //totalseconds = atof(argv[1]);
   deltaTseconds = atof(argv[2]);
+
   int numberOfBodies;
   std::cout << "delta T seconds" << deltaTseconds <<"\n";
   float universeSize;
@@ -59,7 +60,7 @@ int main(int argc, char *argv[]) {
       if (event.type == sf::Event::Closed)
         window.close();
     }
-  
+    
     window.clear();
     window.draw(backgroundSprite);
     for( int i = 0; i < numberOfBodies; i++){ // i is the body to work on
@@ -111,7 +112,6 @@ int main(int argc, char *argv[]) {
         bodies[i] -> step(deltaTseconds);
         bodies[i] ->printData();
       }
-      
     window.display();
   }
 
