@@ -58,60 +58,19 @@ int main(int argc, char *argv[]) {
     window.clear();
     window.draw(backgroundSprite);
     for( int i = 0; i < numberOfBodies; i++){ // i is the body to work on
-        double yForceTotal = 0;
-        double xForceTotal = 0;
-        double accelx, accely, mass1, mass2;
         for ( int j = 0; j < numberOfBodies; j++){// j iterates through all the other bodies
-        
-        sf::Vector2f tempvector, tempvector2, newVelocity;
-        //declare and label a bunch of floats for use here
-        double CONSTANT_G = 0.00000000006673;
-        double distanceBetween, xdis, ydis, xdissqrd, ydissqrd, temp, distanceBetweensqrd,forcex, forcey;
-        // lets calculate the distance between the first body in the vector and the second.
-        tempvector = bodies[i] -> getPos();
-        tempvector2 = bodies[j] -> getPos();
-        xdis = tempvector.x - tempvector2.x;
-        ydis = tempvector.y - tempvector2.y;
-        xdissqrd = xdis * xdis; 
-        ydissqrd = ydis * ydis;
-        temp = xdissqrd + ydissqrd; // a square + b square
-        distanceBetween = sqrt(temp); // c square
-       
-        //calculate the force between the two objects
-        double force; 
-        mass1 = bodies[i] -> getMass();
-        mass2 = bodies[j] -> getMass(); 
-        distanceBetweensqrd = distanceBetween * distanceBetween;
-        if(distanceBetweensqrd == 0){
-          force = 0;
-          forcex = 0;
-          forcey = 0;
-        } else {
-          force = (CONSTANT_G * mass1 * mass2) / distanceBetweensqrd;
-          //calculate the x and y components of the force ont th body
-          forcex = (xdis / distanceBetween) * force;
-          forcey = (ydis / distanceBetween) * force;
-        }
-        xForceTotal = xForceTotal + forcex;
-        yForceTotal = yForceTotal + forcey;
-        
-  
-        }//end j
-    // calculate the acceleration on the body's x and y components
-        accelx = xForceTotal / mass1;
-        accely = yForceTotal / mass1;
-        //give the new accel to the body
-        bodies[i] ->setAccel(accelx, accely);
+          //Sum forces for each body i
 
+          //Find acceleration on that body i
+        }//end j
     }//end i
 
-      for (int i = 0; i < static_cast<int>(bodies.size()); i++) {
+    for (int i = 0; i < static_cast<int>(bodies.size()); i++) {
+      // step() to update position of each body
 
-        //bodies[i] ->printData();
-        window.draw(*bodies.at(i));
-        bodies[i] -> step(deltaTseconds);
-        //bodies[i] ->printData();
-      }
+      // Draw each body
+      window.draw(*bodies.at(i));
+    }
     window.display();
   }
 
