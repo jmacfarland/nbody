@@ -68,7 +68,7 @@ int main(int argc, char *argv[]) {
         
         sf::Vector2f tempvector, tempvector2, newVelocity;
         //declare and label a bunch of floats for use here
-        float CONSTANT_G = 0.00000000006673;
+        double CONSTANT_G = 0.00000000006673;
         double distanceBetween, xdis, ydis, xdissqrd, ydissqrd, temp, distanceBetweensqrd, mass1, mass2, forcex, forcey, accelx, accely;
         // lets calculate the distance between the first body in the vector and the second.
         tempvector = bodies[i] -> getPos();
@@ -81,7 +81,7 @@ int main(int argc, char *argv[]) {
         distanceBetween = sqrt(temp); // c square
        
         //calculate the force between the two objects
-        float force; 
+        double force; 
         mass1 = bodies[i] -> getMass();
         mass2 = bodies[j] -> getMass(); 
         distanceBetweensqrd = distanceBetween * distanceBetween;
