@@ -89,8 +89,7 @@ void::Body::setMyOrigin(){
 }
 
 void::Body::printData(){
-  std::cout << std::setw(10) << std::left << "Data"
-  << std::setw(10) << std::left << position.x << " \t "
+  std::cout << std::setw(10) << std::left << position.x << " \t "
   << std::setw(10) << std::left << position.y << " \t "
   << std::setw(10) << std::left << velocity.x << " \t "
   << std::setw(10) << std::left << velocity.y << " \t "
