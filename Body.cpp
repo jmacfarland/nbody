@@ -1,8 +1,8 @@
 #include "Body.hpp"
 #include <iostream>
-Body::Body(float x_pos, float y_pos, float x_vel, float y_vel, float mass_init,
-           std::string filename) {
-  position.x = x_pos;
+#include <string>
+Body::Body(float x_pos, float y_pos, float x_vel, float y_vel, float mass_init, std::string filename) {
+  position.x = x_pos; //lets assume were in a 600 x 600 window to get this baby at the origin
   position.y = y_pos;
   velocity.x = x_vel;
   velocity.y = y_vel;
@@ -12,6 +12,7 @@ Body::Body(float x_pos, float y_pos, float x_vel, float y_vel, float mass_init,
   setupSprite(filename);
   old_position.x = x_pos;
   old_position.y = y_pos;
+  file = filename;
 }
 
 void Body::draw(sf::RenderTarget &target, sf::RenderStates states) const {
@@ -22,12 +23,7 @@ sf::Vector2f Body::getPos() const { return position; }
 
 sf::Vector2f Body::getVel() const { return velocity; }
 
-void Body::setPos(sf::Vector2f newPos) { position = newPos; }
 
-void Body::setPos(float x, float y) {
-  position.x = x;
-  position.y = y;
-}
 
 double Body::getMass() {
   return mass;
@@ -43,18 +39,19 @@ void Body::setVel(float x, float y) {
   velocity.x = x;
   velocity.y = y;
 }
+//setAccell actual adjusts the current accel
 
 void Body::setAccel(float x_accel, float y_accel){
-  X_acceleration = x_accel;
-  Y_acceleration = y_accel;
+  X_acceleration =  X_acceleration + x_accel;
+  Y_acceleration = Y_acceleration + y_accel;
 }
  void Body::setDeltaT(float seconds){
    delta_T =  seconds;
  }
 void Body::step(double deltaT){
   //update the velocity
-  velocity.x = velocity.x * deltaT * X_acceleration;
-  velocity.y = velocity.y * deltaT * Y_acceleration;
+  velocity.x = velocity.x + (deltaT * X_acceleration);
+  velocity.y = velocity.y + (deltaT * Y_acceleration);
   //update the position
   old_position = position;
   position.x = position.x  + (velocity.x * deltaT);
@@ -65,8 +62,7 @@ void Body::step(double deltaT){
   sprite.move(move_x, move_y);
 }
 //setup sprite now also lets the location as well as the filename.
-void Body::setupSprite(std::string filename)
-{
+
   
 // setup sprite now also lets the location as well as the filename.
 void Body::setupSprite(std::string filename) {
@@ -83,4 +79,16 @@ void Body::setStartPosition() {
   sprite.move(movex, movey);
 }
 
-void ::Body::setMyOrigin() { sprite.setPosition(300, 300); }
+void::Body::setMyOrigin(){
+  sprite.setPosition(300,300);
+}
+
+void::Body::printData(){
+  std::cout << std::setw(10) << std::left << "Data" 
+  << std::setw(10) << std::left << position.x << " \t "
+  << std::setw(10) << std::left << position.y << " \t "
+  << std::setw(10) << std::left << velocity.x << " \t "
+  << std::setw(10) << std::left << velocity.y << " \t "
+  << std::setw(10) << std::left << mass << " \t "
+  << std::setw(10) << std::left << file << "\n";
+}

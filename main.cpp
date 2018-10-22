@@ -8,10 +8,12 @@
 int main(int argc, char *argv[]) {
   //double totalseconds;
   double deltaTseconds;
+  
   //totalseconds = atof(argv[1]);
   deltaTseconds = atof(argv[2]);
 
   int numberOfBodies;
+  std::cout << "delta T seconds" << deltaTseconds <<"\n";
   float universeSize;
   std::vector<Body *> bodies;
   std::string line;
@@ -61,13 +63,16 @@ int main(int argc, char *argv[]) {
     
     window.clear();
     window.draw(backgroundSprite);
-    for( int i = 0; i < numberOfBodies; ++i){ // i is the body to work on
-        for ( int j = 0; j < numberOfBodies; ++j){// j iterates through all the other bodies
+    for( int i = 0; i < numberOfBodies; i++){ // i is the body to work on
+        double yForceTotal = 0;
+        double xForceTotal = 0;
+        double accelx, accely, mass1, mass2;
+        for ( int j = 0; j < numberOfBodies; j++){// j iterates through all the other bodies
         
         sf::Vector2f tempvector, tempvector2, newVelocity;
         //declare and label a bunch of floats for use here
-        float CONSTANT_G = 0.00000000006673;
-        float distanceBetween, xdis, ydis, xdissqrd, ydissqrd, temp, distanceBetweensqrd, mass1, mass2, forcex, forcey, accelx, accely;
+        double CONSTANT_G = 0.00000000006673;
+        double distanceBetween, xdis, ydis, xdissqrd, ydissqrd, temp, distanceBetweensqrd,forcex, forcey;
         // lets calculate the distance between the first body in the vector and the second.
         tempvector = bodies[i] -> getPos();
         tempvector2 = bodies[j] -> getPos();
@@ -79,7 +84,7 @@ int main(int argc, char *argv[]) {
         distanceBetween = sqrt(temp); // c square
        
         //calculate the force between the two objects
-        float force; 
+        double force; 
         mass1 = bodies[i] -> getMass();
         mass2 = bodies[j] -> getMass(); 
         distanceBetweensqrd = distanceBetween * distanceBetween;
@@ -94,20 +99,26 @@ int main(int argc, char *argv[]) {
           forcex = (xdis / distanceBetween) * force;
           forcey = (ydis / distanceBetween) * force;
         }
-        // calculate the acceleration on the body's x and y components
-        accelx = forcex / mass1;
-        accely = forcey / mass1; 
-        //give the new accel to the body
-        bodies[i] ->setAccel(accelx, accely);
+        xForceTotal = xForceTotal + forcex;
+        yForceTotal = yForceTotal + forcey;
+        
   
         }//end j
+    // calculate the acceleration on the body's x and y components
+        accelx = xForceTotal / mass1;
+        accely = yForceTotal / mass1; 
+        //give the new accel to the body
+        bodies[i] ->setAccel(accelx, accely);
+    
+    
     }//end i
      
       for (int i = 0; i < (int)bodies.size(); i++) {
 
-        
+        bodies[i] ->printData();
         window.draw(*bodies.at(i));
         bodies[i] -> step(deltaTseconds);
+        bodies[i] ->printData();
       }
     window.display();
   }

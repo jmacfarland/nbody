@@ -3,12 +3,12 @@
 #include <SFML/Window.hpp>
 #include <fstream>
 #include <iostream>
+#include <iomanip>
 #include <sstream>
 #include <string>
-
-#ifndef BODY_HPP_
-#define BODY_HPP_
-// TESTING GIT
+#ifndef BODY_HPP
+#define BODY_HPP
+//TESTING GIT
 class Body : public sf::Drawable {
 public:
   // Constructor, sets data equal to given values
@@ -20,15 +20,14 @@ public:
   // window
   virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
-  // Moves the body over given seconds in accordance with its velocity.
-  void step(double seconds);
+ 
 
   // Getters and setters
   sf::Vector2f getPos() const;
   sf::Vector2f getVel() const;
   double getMass();
   void setPos(sf::Vector2f pos);
-  void setPos(float x, float y);
+  
   void setVel(sf::Vector2f vel);
   void setAccel(float xaccel, float yaccel);
   
@@ -43,6 +42,7 @@ public:
   void setStartPosition();
   void setMyOrigin();
   void setDeltaT(float seconds);
+  void printData();
 
   //step function to move body based on time and current velocity
   void step(double delT);
@@ -62,6 +62,7 @@ private:
   float X_acceleration;
   float Y_acceleration;
   float delta_T;
+  std::string file;
 };
 
  
