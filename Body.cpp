@@ -47,8 +47,8 @@ void Body::setVel(float x, float y) {
 //setAccell actual adjusts the current accel
 
 void Body::setAccel(float x_accel, float y_accel){
-  X_acceleration =  X_acceleration + x_accel;
-  Y_acceleration = Y_acceleration + y_accel;
+  X_acceleration = x_accel;
+  Y_acceleration = y_accel;
 }
  void Body::setDeltaT(float seconds){
    delta_T =  seconds;
