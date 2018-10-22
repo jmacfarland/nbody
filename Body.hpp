@@ -3,6 +3,7 @@
 #include <SFML/Window.hpp>
 #include <fstream>
 #include <iostream>
+#include <iomanip>
 #include <sstream>
 #include <string>
 #ifndef BODY_HPP
