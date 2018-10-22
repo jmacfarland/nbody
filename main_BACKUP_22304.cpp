@@ -5,6 +5,18 @@
 
 #include "Body.hpp"
 
+void displayResults(std::vector<Body*> bodies, int numberOfBodies, float universeSize) {
+  std::cout << numberOfBodies << std::endl;
+  std::cout << universeSize << std::endl;
+  for(int i = 0; i < static_cast<int>(bodies.size()); ++i) {
+    sf::Vector2f position = bodies[i]->getPos();
+    std::cout << position.x << " " << position.y << " ";
+    sf::Vector2f velocity = bodies[i]->getVel();
+    std::cout << velocity.x << " " << velocity.y << " ";
+    std::cout << bodies[i]->getMass() << " " << bodies[i]->getFilename() << std::endl;
+  }
+}
+
 int main(int argc, char *argv[]) {
   //double totalseconds;
   double deltaTseconds;
@@ -62,7 +74,7 @@ int main(int argc, char *argv[]) {
         double xForceTotal = 0;
         double accelx, accely, mass1, mass2;
         for ( int j = 0; j < numberOfBodies; j++){// j iterates through all the other bodies
-        
+
         sf::Vector2f tempvector, tempvector2, newVelocity;
         //declare and label a bunch of floats for use here
         double CONSTANT_G = 0.00000000006673;
@@ -72,15 +84,15 @@ int main(int argc, char *argv[]) {
         tempvector2 = bodies[j] -> getPos();
         xdis = tempvector.x - tempvector2.x;
         ydis = tempvector.y - tempvector2.y;
-        xdissqrd = xdis * xdis; 
+        xdissqrd = xdis * xdis;
         ydissqrd = ydis * ydis;
         temp = xdissqrd + ydissqrd; // a square + b square
         distanceBetween = sqrt(temp); // c square
-       
+
         //calculate the force between the two objects
-        double force; 
+        double force;
         mass1 = bodies[i] -> getMass();
-        mass2 = bodies[j] -> getMass(); 
+        mass2 = bodies[j] -> getMass();
         distanceBetweensqrd = distanceBetween * distanceBetween;
         if(distanceBetweensqrd == 0){
           force = 0;
@@ -94,8 +106,8 @@ int main(int argc, char *argv[]) {
         }
         xForceTotal = xForceTotal + forcex;
         yForceTotal = yForceTotal + forcey;
-        
-  
+
+
         }//end j
     // calculate the acceleration on the body's x and y components
         accelx = xForceTotal / mass1;
@@ -103,10 +115,17 @@ int main(int argc, char *argv[]) {
         //give the new accel to the body
         bodies[i] ->setAccel(accelx, accely);
 
+
     }//end i
+<<<<<<< HEAD
 
       for (int i = 0; i < static_cast<int>(bodies.size()); i++) {
 
+=======
+
+      for (int i = 0; i < (int)bodies.size(); i++) {
+
+>>>>>>> 711177f7fcf923e6d3be3110076e476cbe53abbc
         //bodies[i] ->printData();
         window.draw(*bodies.at(i));
         bodies[i] -> step(deltaTseconds);
@@ -114,6 +133,7 @@ int main(int argc, char *argv[]) {
       }
     window.display();
   }
+  displayResults(bodies, numberOfBodies, universeSize);
 
   //Print final positions, etc
   std::cout << numberOfBodies << std::endl;

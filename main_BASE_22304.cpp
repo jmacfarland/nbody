@@ -8,17 +8,20 @@
 int main(int argc, char *argv[]) {
   //double totalseconds;
   double deltaTseconds;
-
+  
   //totalseconds = atof(argv[1]);
   deltaTseconds = atof(argv[2]);
 
   int numberOfBodies;
+  std::cout << "delta T seconds" << deltaTseconds <<"\n";
   float universeSize;
   std::vector<Body *> bodies;
   std::string line;
   // read in universe size and number of bodies
   std::cin >> numberOfBodies;
+  std::cout << "number of bodies: " << numberOfBodies << std::endl;
   std::cin >> universeSize;
+  std::cout << universeSize << std::endl;
   // read in the planet data
 
   // 600x600 window
@@ -36,11 +39,14 @@ int main(int argc, char *argv[]) {
   std::string filename;
   for (int i = 0; i < numberOfBodies; i++) {
     std::cin >> xpos;
+    std::cout << "X: " << xpos << ", ";
     std::cin >> ypos;
+    std::cout << "Y: " << ypos << ", ";
     std::cin >> xvel;
     std::cin >> yvel;
     std::cin >> mass;
     std::cin >> filename;
+    std::cout << filename << std::endl;
     bodies.push_back(new Body(xpos, ypos, xvel, yvel, mass, filename));
     bodies[i]->setMyOrigin();
     bodies[i]->setUniverseSize(universeSize);
@@ -54,7 +60,7 @@ int main(int argc, char *argv[]) {
       if (event.type == sf::Event::Closed)
         window.close();
     }
-
+    
     window.clear();
     window.draw(backgroundSprite);
     for( int i = 0; i < numberOfBodies; i++){ // i is the body to work on
@@ -86,7 +92,8 @@ int main(int argc, char *argv[]) {
           force = 0;
           forcex = 0;
           forcey = 0;
-        } else {
+        }
+        else {
           force = (CONSTANT_G * mass1 * mass2) / distanceBetweensqrd;
           //calculate the x and y components of the force ont th body
           forcex = (xdis / distanceBetween) * force;
@@ -99,27 +106,21 @@ int main(int argc, char *argv[]) {
         }//end j
     // calculate the acceleration on the body's x and y components
         accelx = xForceTotal / mass1;
-        accely = yForceTotal / mass1;
+        accely = yForceTotal / mass1; 
         //give the new accel to the body
         bodies[i] ->setAccel(accelx, accely);
-
+    
+    
     }//end i
+     
+      for (int i = 0; i < (int)bodies.size(); i++) {
 
-      for (int i = 0; i < static_cast<int>(bodies.size()); i++) {
-
-        //bodies[i] ->printData();
+        bodies[i] ->printData();
         window.draw(*bodies.at(i));
         bodies[i] -> step(deltaTseconds);
-        //bodies[i] ->printData();
+        bodies[i] ->printData();
       }
     window.display();
-  }
-
-  //Print final positions, etc
-  std::cout << numberOfBodies << std::endl;
-  std::cout << universeSize << std::endl;
-  for (int i = 0; i < static_cast<int>(bodies.size()); i++) {
-    bodies[i] ->printData();
   }
 
   return 0;

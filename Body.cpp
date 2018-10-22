@@ -28,6 +28,11 @@ sf::Vector2f Body::getVel() const { return velocity; }
 double Body::getMass() {
   return mass;
 }
+
+std::string Body::getFilename() const {
+  return file;
+}
+
 void Body::setPos(sf::Vector2f newPos) {
   position = newPos;
 
@@ -58,12 +63,12 @@ void Body::step(double deltaT){
   position.y = position.y + (velocity.y * deltaT);
   // move the sprite an ammount relative to the screen
   float move_x = ((position.x - old_position.x) / universeSize) * 300;
-  float move_y = ((position.y - old_position.y) / universeSize) * 300; 
+  float move_y = ((position.y - old_position.y) / universeSize) * 300;
   sprite.move(move_x, move_y);
 }
 //setup sprite now also lets the location as well as the filename.
 
-  
+
 // setup sprite now also lets the location as well as the filename.
 void Body::setupSprite(std::string filename) {
   texture.loadFromFile(filename);
@@ -84,7 +89,7 @@ void::Body::setMyOrigin(){
 }
 
 void::Body::printData(){
-  std::cout << std::setw(10) << std::left << "Data" 
+  std::cout << std::setw(10) << std::left << "Data"
   << std::setw(10) << std::left << position.x << " \t "
   << std::setw(10) << std::left << position.y << " \t "
   << std::setw(10) << std::left << velocity.x << " \t "

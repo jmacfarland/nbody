@@ -62,7 +62,7 @@ int main(int argc, char *argv[]) {
         double xForceTotal = 0;
         double accelx, accely, mass1, mass2;
         for ( int j = 0; j < numberOfBodies; j++){// j iterates through all the other bodies
-        
+
         sf::Vector2f tempvector, tempvector2, newVelocity;
         //declare and label a bunch of floats for use here
         double CONSTANT_G = 0.00000000006673;
@@ -72,15 +72,15 @@ int main(int argc, char *argv[]) {
         tempvector2 = bodies[j] -> getPos();
         xdis = tempvector.x - tempvector2.x;
         ydis = tempvector.y - tempvector2.y;
-        xdissqrd = xdis * xdis; 
+        xdissqrd = xdis * xdis;
         ydissqrd = ydis * ydis;
         temp = xdissqrd + ydissqrd; // a square + b square
         distanceBetween = sqrt(temp); // c square
-       
+
         //calculate the force between the two objects
-        double force; 
+        double force;
         mass1 = bodies[i] -> getMass();
-        mass2 = bodies[j] -> getMass(); 
+        mass2 = bodies[j] -> getMass();
         distanceBetweensqrd = distanceBetween * distanceBetween;
         if(distanceBetweensqrd == 0){
           force = 0;
@@ -94,14 +94,15 @@ int main(int argc, char *argv[]) {
         }
         xForceTotal = xForceTotal + forcex;
         yForceTotal = yForceTotal + forcey;
-        
-  
+
+
         }//end j
     // calculate the acceleration on the body's x and y components
         accelx = xForceTotal / mass1;
         accely = yForceTotal / mass1;
         //give the new accel to the body
         bodies[i] ->setAccel(accelx, accely);
+
 
     }//end i
 

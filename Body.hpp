@@ -20,17 +20,18 @@ public:
   // window
   virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
- 
+
 
   // Getters and setters
   sf::Vector2f getPos() const;
   sf::Vector2f getVel() const;
   double getMass();
+  std::string getFilename() const;
   void setPos(sf::Vector2f pos);
-  
+
   void setVel(sf::Vector2f vel);
   void setAccel(float xaccel, float yaccel);
-  
+
   //Define the oveloaded operator >>
   //friend std::istream & operator>>( std::istream &input ,Body &b);
   void setVel(float x, float y);
@@ -65,5 +66,5 @@ private:
   std::string file;
 };
 
- 
+
 #endif
