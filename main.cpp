@@ -8,9 +8,11 @@
 int main(int argc, char *argv[]) {
   //double totalseconds;
   double deltaTseconds;
+  
   //totalseconds = atof(argv[1]);
   deltaTseconds = atof(argv[2]);
   int numberOfBodies;
+  std::cout << "delta T seconds" << deltaTseconds <<"\n";
   float universeSize;
   std::vector<Body *> bodies;
   std::string line;
@@ -60,13 +62,13 @@ int main(int argc, char *argv[]) {
   
     window.clear();
     window.draw(backgroundSprite);
-    for( int i = 0; i < numberOfBodies; ++i){ // i is the body to work on
-        for ( int j = 0; j < numberOfBodies; ++j){// j iterates through all the other bodies
+    for( int i = 0; i < numberOfBodies; i++){ // i is the body to work on
+        for ( int j = 0; j < numberOfBodies; j++){// j iterates through all the other bodies
         
         sf::Vector2f tempvector, tempvector2, newVelocity;
         //declare and label a bunch of floats for use here
         float CONSTANT_G = 0.00000000006673;
-        float distanceBetween, xdis, ydis, xdissqrd, ydissqrd, temp, distanceBetweensqrd, mass1, mass2, forcex, forcey, accelx, accely;
+        double distanceBetween, xdis, ydis, xdissqrd, ydissqrd, temp, distanceBetweensqrd, mass1, mass2, forcex, forcey, accelx, accely;
         // lets calculate the distance between the first body in the vector and the second.
         tempvector = bodies[i] -> getPos();
         tempvector2 = bodies[j] -> getPos();
@@ -104,9 +106,10 @@ int main(int argc, char *argv[]) {
      
       for (int i = 0; i < (int)bodies.size(); i++) {
 
-        
+        bodies[i] ->printData();
         window.draw(*bodies.at(i));
         bodies[i] -> step(deltaTseconds);
+        bodies[i] ->printData();
       }
       
     window.display();

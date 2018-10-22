@@ -5,7 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-
+#include <string>
 #ifndef BODY_HPP
 #define BODY_HPP
 //TESTING GIT
@@ -32,6 +32,7 @@ public:
   void setStartPosition();
   void setMyOrigin();
   void setDeltaT(float seconds);
+  void printData();
 
   //step function to move body based on time and current velocity
   void step(double delT);
@@ -51,7 +52,7 @@ private:
   float X_acceleration;
   float Y_acceleration;
   float delta_T;
- 
+  std::string file;
 };
 
  

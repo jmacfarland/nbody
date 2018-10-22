@@ -1,5 +1,6 @@
 #include "Body.hpp"
 #include <iostream>
+#include <string>
 Body::Body(float x_pos, float y_pos, float x_vel, float y_vel, float mass_init, std::string filename) {
   position.x = x_pos; //lets assume were in a 600 x 600 window to get this baby at the origin
   position.y = y_pos;
@@ -11,6 +12,7 @@ Body::Body(float x_pos, float y_pos, float x_vel, float y_vel, float mass_init, 
   setupSprite(filename);
   old_position.x = x_pos;
   old_position.y = y_pos;
+  file = filename;
 }
 
 void Body::draw(sf::RenderTarget & target, sf::RenderStates states) const {
@@ -34,18 +36,19 @@ void Body::setPos(sf::Vector2f newPos) {
 void Body::setVel(sf::Vector2f newVel) {
   velocity = newVel;
 }
+//setAccell actual adjusts the current accel
 
 void Body::setAccel(float x_accel, float y_accel){
-  X_acceleration = x_accel;
-  Y_acceleration = y_accel;
+  X_acceleration =  X_acceleration + x_accel;
+  Y_acceleration = Y_acceleration + y_accel;
 }
  void Body::setDeltaT(float seconds){
    delta_T =  seconds;
  }
 void Body::step(double deltaT){
   //update the velocity
-  velocity.x = velocity.x * deltaT * X_acceleration;
-  velocity.y = velocity.y * deltaT * Y_acceleration;
+  velocity.x = velocity.x + (deltaT * X_acceleration);
+  velocity.y = velocity.y + (deltaT * Y_acceleration);
   //update the position
   old_position = position;
   position.x = position.x  + (velocity.x * deltaT);
@@ -78,4 +81,8 @@ void Body::setStartPosition(){
 
 void::Body::setMyOrigin(){
   sprite.setPosition(300,300);
+}
+
+void::Body::printData(){
+  std::cout << "Data" << position.x << " - "<< position.y <<" - "<< velocity.x <<" - "<< velocity.y <<" - "<< mass <<" - " << file << "\n";
 }
